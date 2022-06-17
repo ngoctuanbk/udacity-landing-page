@@ -38,8 +38,32 @@
   }
 
   document.addEventListener('scroll', activeSection);
+
+  // get button
+  const button = document.getElementById('button-top');
+
+  window.onscroll = function () {
+    scrollFunc();
+  };
   
-  let navbar = document.getElementById('navbar').querySelectorAll('li');
+  function scrollFunc() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      button.style.display = 'block';
+    } else {
+      button.style.display = 'none';
+    }
+  }
+  
+  // scroll to top
+  function topFunc() {
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0;
+  }
+  
+  // listen event click
+  button.addEventListener('click', topFunc);
+  
+  let navbar = document.getElementById('nav-bar').querySelectorAll('li');
   // eventlistner when click
   navbar.forEach((item) => {
     item.addEventListener('click', function (e) {
