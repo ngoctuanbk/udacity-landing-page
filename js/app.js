@@ -6,13 +6,28 @@
   // initate navabar
   function gernerateNav() {
     sectionsElements.forEach((sec) => {
-      navList += `<li> <a class="nav-link nav-bar-link" href="#${sec.id}" id="navli">
+      navList += `<li> <a class="nav-bar-link" href="#${sec.id}" id="navli">
             ${sec.dataset.nav}</a></li>`;
     });
     navbarUrl.innerHTML = navList;
   }
-  gernerateNav();
+
   
+  gernerateNav();
+
+  const navLinks = document.querySelectorAll(".nav-bar-link");
+  navLinks.forEach((link) => {
+    console.log('link', link)
+    link.addEventListener('click', (event) => {
+        event.preventDefault();
+        const id = link.getAttribute("href");
+        const targetSection = document.querySelector(id);
+        targetSection.scrollIntoView({
+            behavior: "smooth"
+        });
+    })
+  });
+
   // active class
   function addActiveClass(sec) {
     const classId = sec.getAttribute('id');
