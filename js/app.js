@@ -4,16 +4,15 @@
   let navList = '';
 
   // initate navabar
-  function gernerateNav() {
-    sectionsElements.forEach((sec) => {
+  function renderNav() {
+    for (sec of sectionsElements) {
       navList += `<li> <a class="nav-bar-link" href="#${sec.id}" id="navli">
             ${sec.dataset.nav}</a></li>`;
-    });
+    };
     navbarUrl.innerHTML = navList;
   }
 
-  
-  gernerateNav();
+  renderNav();
 
   const navLinks = document.querySelectorAll(".nav-bar-link");
   navLinks.forEach((link) => {
@@ -27,26 +26,20 @@
     })
   });
 
-  // active class
-  function addActiveClass(sec) {
-    const classId = sec.getAttribute('id');
-    document.querySelector(`#${classId}`).classList.add('class-active');
-  }
-
-  //remove class
-  function removeActiveClass(sec) {
-    const classId = sec.getAttribute('id');
-    document.querySelector(`#${classId}`).classList.remove('class-active');
-  }
+  // check session in view port
+  const secInViewport = (view) => {
+    let sect = view.getBoundingClientRect();
+    return sect.top <= 150 && sect.bottom >= 150;
+  };
 
   //active section when click
   function activeSection() {
     sectionsElements.forEach((sec) => {
-      let elementOffset = sec.getBoundingClientRect();
-      if (elementOffset.top <= 150 && elementOffset.bottom >= 150) {
-        addActiveClass(sec);
+      const classId = sec.getAttribute('id');
+      if (secInViewport(sec)) {
+        document.querySelector(`#${classId}`).classList.add('class-active');
       } else {
-        removeActiveClass(sec);
+        document.querySelector(`#${classId}`).classList.remove('class-active');
       }
     });
   }
@@ -55,27 +48,6 @@
 
   // get button
   const button = document.getElementById('button-top');
-
-  window.onscroll = function () {
-    scrollFunc();
-  };
-  
-  function scrollFunc() {
-    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-      button.style.display = 'block';
-    } else {
-      button.style.display = 'none';
-    }
-  }
-  
-  // scroll to top
-  function topFunc() {
-    document.body.scrollTop = 0; 
-    document.documentElement.scrollTop = 0;
-  }
-  
-  // listen event click
-  button.addEventListener('click', topFunc);
   
   let navbar = document.getElementById('nav-bar').querySelectorAll('li');
   // eventlistner when click
