@@ -17,7 +17,6 @@
 
   const navLinks = document.querySelectorAll(".nav-bar-link");
   navLinks.forEach((link) => {
-    console.log('link', link)
     link.addEventListener('click', (event) => {
         event.preventDefault();
         const id = link.getAttribute("href");
